@@ -1,0 +1,28 @@
+MARRS 2.0 CLASSROOMS
+
+*This is the script to triggar scans of Classrooms systems and reports it to the Marrs drupal server
+
+Version History
+
+2.0 *CURRENT
+1. This is the initial script creation, it is a direct import from the previous server and is currently functioning in a limited capacity but for classroom scanning all is working as desired
+
+
+
+
+
+KNOWN BUGS
+* 
+
+
+VERSION TEMPLATE
+X.Y X-Major revision number and Y-Minor Revision Number
+CHANGES:
+1. .....
+2. .....
+
+BUG FIXES:
+* ......
+* ......
+
+

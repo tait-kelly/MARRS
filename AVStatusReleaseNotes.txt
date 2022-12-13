@@ -1,0 +1,59 @@
+MARRS 2.0 AVStatus
+
+*This is the script to run scans of Classrooms systems and reports it to the Marrs drupal server. These scans are run based on IP parameter passed from Classrooms.sh
+
+Version History
+2.2 *INPROGRESS
+CHANGES:
+1. Implement an online updating method to improve depoyments and changes
+
+
+BUG FIXES:
+* ......
+* ......
+
+
+
+2.1 *CURRENT
+CHANGES:
+1. Updated path for status files to be copied to for Drupal webserver. - DONE
+2. Updated Entity IDs in the script for proper lookup and pull of data from DB for each classroom.  - DONE
+3. Updated Color Codes for status of system - DONE
+
+BUG FIXES:
+* There is a lot of HTML output that is being performed to go to files on the server to them be moved into the drupal site but is currently not being moved to the correct location.
+* Drupal database integration for status is currently not working.
+* Status update is not updating in the Database for individual systems 
+
+2.0
+CHANGES:
+1. This is the initial script creation, it is a direct import from the previous server and is currently functioning in a limited capacity
+
+BUG FIXES:
+NONE
+
+
+
+
+===================================================================================================================================
+IMPROVEMENTS TO IMPLEMENT
+# Online updates of the script via GITHUB and migrating main scripts to GITHUB
+# Updating of Last full scan time in content
+
+
+===================================================================================================================================
+KNOWN BUGS
+
+
+==================================================================================
+VERSION TEMPLATE
+X.Y X-Major revision number and Y-Minor Revision Number
+CHANGES:
+1. .....
+2. .....
+
+BUG FIXES:
+* ......
+* ......
+
+

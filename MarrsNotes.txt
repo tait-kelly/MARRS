@@ -1,0 +1,27 @@
+MARRS 2.0 Notes
+
+Scripts are divided up into different functions
+
+CLASSROOMS / AV SYSTEMS
+Classrooms.sh: Script to perform scans of all AV Systems based on the schedules set
+AVStatus.sh: This is the main script which is scanning and monitoring all AV systems
+AVPing.sh: This script performs the intermittent polling for AV systems components
+
+ADHOCS Monitoring
+ADHOCS.sh: This script is performing the scheduled scan of all ADHOC devices. This scans the Drupal database and pulls all ADHOC devices and their IP's and then runs ADHOCCHECK.sh to scan the device for it's online status
+ADHOCCHECK.sh: This will scan the provided device and check online status, the provided device is passed in parameters from the ADHOCS.sh script
+
+SERVICES
+SERVICES.sh: This will pull any services that are in the Drupal system and will perform a simple ping of the service using SERVICESPING.sh script
+SERVICESPING.sh: This performs a ping of the service specified / passed as a parameter from SERVICES.sh
+
+MASTER BRANCH
+MASTER.sh: This is a master script that will run and monitor all main scripts and checks to confirm they are running and active.
+
+EXACQ - Security cameras
+
+EXACQCLEANUP.sh: This script performs a check of the exacq server's status and clears out old data older than the specified date (currently 90 days)
+
+=======================================================================================================
+2022-12-09 - Creation of the Github and start of documentation.
+2022-12-09 - Currenly only the classrooms.sh script is running cron scripting to automatically launch the scripts is not in place on server

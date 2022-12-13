@@ -3,6 +3,8 @@ PATH=/opt/someApp/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/b
 #AVStatus IP
 #This will check for the controller being up then the uptime then the program uptime then get the IP table and the Threads running
 
+VERSION:2.1
+
 #Imporvements: separate and set background based on conditions of IPT offiline devices and Threadpool too high
 IP=$1
 echo "<!DOCTYPE html>" > $IP.status.html
