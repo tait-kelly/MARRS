@@ -49,22 +49,22 @@ elif [ "${IP:(-3)}" == ".90" ]; then
 	ENTITYID=14
 elif [ "${IP:(-3)}" == "120" ]; then
 	ROOM="SH-Board"
-	ENTITYID=19
+	ENTITYID=20
 elif [ "${IP:(-3)}" == "130" ]; then
 	ROOM="SJ1-CHAPEL"
-	ENTITYID=20
+	ENTITYID=19
 elif [ "${IP:(-3)}" == "140" ]; then
 	ROOM="SJ1-2009"
-	ENTITYID=1
+	ENTITYID=2
 elif [ "${IP:(-3)}" == "160" ]; then
 	ROOM="SJ1-2011"
-	ENTITYID=6
+	ENTITYID=5
 elif [ "${IP:(-3)}" == "170" ]; then
 	ROOM="SJ1-LAB"
 	ENTITYID=21
 elif [ "${IP:(-3)}" == "180" ]; then
 	ROOM="SJ1-3012"
-	ENTITYID=177
+	ENTITYID=6
 elif [ "${IP:(-3)}" == "190" ]; then
 	ROOM="SJ1-3013"
 	ENTITYID=7
@@ -1204,25 +1204,18 @@ if [ "$STATUS" == "0" ]; then
 		#echo "now the copy"
 		echo "A+C247srv" | sudo cp /home/sysadmin/Documents/errors/$IP.log /var/www/html/sites/default/files/$IP.log
 		#sendemail -f sjuit@sju.ca -t tait.kelly@uwaterloo.ca -u [AVID#$PREVAVID] Communications Restored in room:$ROOM -m "[AVID#$PREVAVID] A Previous issues found in room $ROOM was resolved" -s mail2.nettrac.net:2500 -xu sjuit@sju.ca -xp "?Mm&FdfU"
-	       	sudo mysql drupal --batch -u root -p"A+C247srv" -e "SELECT delta FROM node__field_av_status_events WHERE entity_id='$ENTITYID' ORDER BY delta DESC LIMIT 1" > lastdelta.txt
+	       	sudo mysql drupal --batch -u root -p"A+C247srv" -e "SELECT delta FROM node__field_history WHERE entity_id='$ENTITYID' ORDER BY delta DESC LIMIT 1" > lastdelta.txt
        		while read -r delta
        		do
 			DELTA=$delta
 		done <lastdelta.txt
 		DELTA=$((DELTA+1))
-		sudo mysql drupal --batch -u root -p"A+C247srv" -e "SELECT revision_id FROM node__field_av_status_events WHERE entity_id='$ENTITYID' ORDER BY delta DESC LIMIT 1" > lastrev.txt
+		sudo mysql drupal --batch -u root -p"A+C247srv" -e "SELECT revision_id FROM node__field_history WHERE entity_id='$ENTITYID' ORDER BY delta DESC LIMIT 1" > lastrev.txt
 		while read -r revid
 		do
 			REVID=$revid
 		done <lastrev.txt
-		sudo mysql drupal --batch -u root -p"A+C247srv" -e "INSERT INTO node__field_av_status_events VALUES ('av_status','0','$ENTITYID','$REVID','en','$DELTA','[AVID#-$PREVAVID]$TODAY:The previous issue in room $ROOM was resolved')"
-		sudo mysql drupal --batch -u root -p"A+C247srv" -e "SELECT revision_id FROM node__field_av_status_code WHERE entity_id='$ENTITYID' ORDER BY delta DESC LIMIT 1" > lastcolorrev.txt
-                while read -r revid
-                do
-                        REVCOLORID=$revid
-                done <lastcolorrev.txt
-		echo I am going to do:"REPLACE into node__field_av_status_code VALUES ('av_status','0','$ENTITYID','$REVCOLORID','en','0','008450','1')"
-		sudo mysql drupal --batch -u root -p"A+C247srv" -e "REPLACE into node__field_av_status_code VALUES ('av_status','0','$ENTITYID','$REVCOLORID','en','0','008450','1')"
+		sudo mysql drupal --batch -u root -p"A+C247srv" -e "INSERT INTO node__field_history VALUES ('av_status','0','$ENTITYID','$REVID','en','$DELTA','[AVID#-$PREVAVID]$TODAY:The previous issue in room $ROOM was resolved')"
 	fi
 elif [ "$STATUS" == "1" ]; then
 	echo "<body bgcolor="RED">">> $IP.status.html
@@ -1239,31 +1232,24 @@ elif [ "$STATUS" == "1" ]; then
 		echo "$AVID" > /home/sysadmin/Documents/errors/$IP.AVID.txt
 		echo "[AVID#-$AVID] $TODAY:There is an error in room $ROOM of:$FAILED" > /home/sysadmin/Documents/errors/$IP.txt	
 		echo "[AVID#-$AVID] $TODAY:There is an error in room $ROOM of:$FAILED" >> /home/sysadmin/Documents/errors/$IP.log
-		sudo mysql drupal --batch -u root -p"A+C247srv" -e "SELECT delta FROM node__field_av_status_events WHERE entity_id='$ENTITYID' ORDER BY delta DESC LIMIT 1" > lastdelta.txt
+		sudo mysql drupal --batch -u root -p"A+C247srv" -e "SELECT delta FROM node__field_history WHERE entity_id='$ENTITYID' ORDER BY delta DESC LIMIT 1" > lastdelta.txt
 		while read -r delta
 		do
 		        DELTA=$delta
 		done <lastdelta.txt
 		DELTA=$((DELTA+1))
-		sudo mysql drupal --batch -u root -p"A+C247srv" -e "SELECT revision_id FROM node__field_av_status_events WHERE entity_id='$ENTITYID' ORDER BY delta DESC LIMIT 1" > lastrev.txt
+		sudo mysql drupal --batch -u root -p"A+C247srv" -e "SELECT revision_id FROM node__field_history WHERE entity_id='$ENTITYID' ORDER BY delta DESC LIMIT 1" > lastrev.txt
 		while read -r revid
 		do
 		        REVID=$revid
 		done <lastrev.txt
-		sudo mysql drupal --batch -u root -p"A+C247srv" -e "INSERT INTO node__field_av_status_events VALUES ('av_status','0','$ENTITYID','$REVID','en','$DELTA','[AVID#-$AVID]$TODAY:There is an error in room $ROOM of:$FAILED')"
-		sudo mysql drupal --batch -u root -p"A+C247srv" -e "SELECT revision_id FROM node__field_av_status_code WHERE entity_id='$ENTITYID' ORDER BY delta DESC LIMIT 1" > lastcolorrev.txt
-                while read -r revid
-                do
-                        REVCOLORID=$revid
-                done <lastcolorrev.txt
-                echo I am going to do:"REPLACE into node__field_av_status_code VALUES ('av_status','0','$ENTITYID','$REVCOLORID','en','0','FF0000','1')"
-                sudo mysql drupal --batch -u root -p"A+C247srv" -e "REPLACE into node__field_av_status_code VALUES ('av_status','0','$ENTITYID','$REVCOLORID','en','0','FF0000','1')"
+		sudo mysql drupal --batch -u root -p"A+C247srv" -e "INSERT INTO node__field_history VALUES ('av_status','0','$ENTITYID','$REVID','en','$DELTA','[AVID#-$AVID]$TODAY:There is an error in room $ROOM of:$FAILED')"
 
 	fi
 fi		
 
 
-sudo mysql drupal --batch -u root -p"A+C247srv" -e "TRUNCATE cachetags"
+
 #echo "next is removing the text file"
 rm $IP.status.txt
 echo "Status report generated:$TODAY" >> $IP.status.html
@@ -1272,8 +1258,8 @@ echo "</body>" >> $IP.status.html
 echo "</HTML>" >> $IP.status.html
 #on the server after this script is completed I will need to move the html file to the public files directory of the webserver
 #echo "now the removal from the var folder"
-echo "A+C247srv" | sudo rm -f /var/www/html/drupal/sites/default/files/$IP.status.html
+echo "A+C247srv" | sudo rm -f /var/www/html/sites/default/files/$IP.status.html
 #echo "now the copy"
-echo "A+C247srv" | sudo cp $IP.status.html /var/www/html/drupal/sites/default/files/$IP.status.html
+echo "A+C247srv" | sudo cp $IP.status.html /var/www/html/sites/default/files/$IP.status.html
 rm $IP.status.html
-#clear
+clear
