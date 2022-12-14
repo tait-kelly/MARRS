@@ -5,7 +5,8 @@ EMAIL1=$2
 EMAIL2=$3
 EMAIL3=$4
 EMAIL4=$5
-TODAY="$(date +%Y-%m-%d.%H:%M:%S)"
+#TODAY="$(date +%Y-%m-%d.%H:%M:%S)"
+TODAY="$(date +%s)"
 #echo "I have emails of $EMAIL1,$EMAIL2,$EMAIL3,$EMAIL4"
 echo "Checking IP $IP" >> adhoclog.log
 sudo mysql drupal --batch -u root -p"A+C247srv" -s -e "SELECT entity_id from node__field_adhoc_ip WHERE field_adhoc_ip_value='$IP'" >adhocentity.txt
@@ -54,8 +55,8 @@ if [ "$FAILED" == "1" ]; then
                         sendemail -f sjuit@sju.ca -t $EMAIL4 -u ADHOC MONITORING OF DEVICE $IP FAILED -m "Monitoring of ADHOC device:$TITLE at ip $IP is down.This device has a description of:$BODY" -s mail2.nettrac.net:2500 -xu sjuit@sju.ca -xp "?Mm&FdfU" #Added Body description in email on September 22, 2021
                 fi
                 echo "ERROR Logged and notification send at $TODAY" > /home/sysadmin/Documents/errors/$IP.txt
-                sudo mysql drupal --batch -u root -p"A+C247srv" -e "UPDATE node__field_status SET field_status_value= '0' WHERE entity_id='$ADHOC'"
-                sudo mysql drupal --batch -u root -p"A+C247srv" -e "UPDATE node__field_lastofflinedt SET field_lastofflinedt_value= '$TODAY' WHERE entity_id='$ADHOC'"
+                sudo mysql drupal --batch -u root -p"A+C247srv" -e "UPDATE node__field_adhoc_online_status SET field_adhoc_online_status_value= '0' WHERE entity_id='$ADHOC'"
+                sudo mysql drupal --batch -u root -p"A+C247srv" -e "UPDATE node__field_adhoc_last_offline SET field_adhoc_last_offline_value= '$TODAY' WHERE entity_id='$ADHOC'"
 				sleep 30s
         fi
 fi
@@ -66,7 +67,7 @@ if [ "$FAILED" == "0" ]; then
                 #echo "Im removing the file and updating the DB now"
                 rm /home/sysadmin/Documents/errors/$IP.txt
                 #echo "the file was just removed now for the database"
-                sudo mysql drupal --batch -u root -p"A+C247srv" -e "UPDATE node__field_status SET field_status_value= '1' WHERE entity_id='$ADHOC'"
+                sudo mysql drupal --batch -u root -p"A+C247srv" -e "UPDATE node__field_adhoc_online_status SET field_adhoc_online_status_value= '1' WHERE entity_id='$ADHOC'"
 				sleep 30s
         fi
 fi
