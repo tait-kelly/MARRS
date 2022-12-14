@@ -19,7 +19,7 @@ do
 				sudo mysql drupal --batch -u root -p"A+C247srv" -s -e "SELECT * from node__field_adhoc_email_notification_2" >> /home/sysadmin/Documents/adhocemails.txt
 				sudo mysql drupal --batch -u root -p"A+C247srv" -s -e "SELECT * from node__field_adhoc_email_notification_3" >> /home/sysadmin/Documents/adhocemails.txt				
 				#echo "At the counter check"
-				read -p "Press enter to continue"
+				#read -p "Press enter to continue"
 			fi
             while read -r line; do
 				clear                                
