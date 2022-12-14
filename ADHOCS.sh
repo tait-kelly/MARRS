@@ -44,8 +44,8 @@ do
 				#echo "I now have an IP of $IP and a polling frequency of $POLLING and emails to notify of $EMAIL1 and $EMAIL2 and $EMAIL3 and $EMAIL4"
   		        if (( $COUNTER % $POLLING == 0 )); then
 					#echo "LOOKS LIKE $COUNTER is divisible by $POLLING I should take action here"
-		            echo time to call the check for the ADHOC with parameters $IP $EMAIL1 $EMAIL2 $EMAIL3
-					read -p "Press enter to continue"
+		            #echo time to call the check for the ADHOC with parameters $IP $EMAIL1 $EMAIL2 $EMAIL3
+					#read -p "Press enter to continue"
 					./ADHOCCHECK.sh $IP $EMAIL1 $EMAIL2 $EMAIL3
                 #else
 						#echo "LOOKS LIKE $COUNTER is NOT divisible by $POLLING so I will move on"
