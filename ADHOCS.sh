@@ -31,10 +31,10 @@ do
 	            #echo "Line is now $line"
                 #echo "$MATCH" |grep select adhocpolling.txt
 	            #echo "above was the seach for the matching string"
-                MATCHING=$(grep "$MATCH" adhocpolling.txt)
-                EMAILS1=$(grep "$MATCH	0" adhocemails.txt)
-				EMAILS2=$(grep "$MATCH	1" adhocemails.txt)
-				EMAILS3=$(grep "$MATCH	2" adhocemails.txt)
+                MATCHING=$(grep "$MATCH" /home/sysadmin/Documents/adhocpolling.txt)
+                EMAILS1=$(grep "$MATCH	0" /home/sysadmin/Documents/adhocemails.txt)
+				EMAILS2=$(grep "$MATCH	1" /home/sysadmin/Documents/adhocemails.txt)
+				EMAILS3=$(grep "$MATCH	2" /home/sysadmin/Documents/adhocemails.txt)
 				#echo "the results of the email search is $EMAILS1"
 				#echo "The matching is $MATCHING:"
 				POLLING=$(echo "$MATCHING" | cut -d '	' -f 7)
@@ -51,7 +51,7 @@ do
 						#echo "LOOKS LIKE $COUNTER is NOT divisible by $POLLING so I will move on"
 					clear					                        
 				fi
-            done <adhocs.txt
+            done </home/sysadmin/Documents/adhocs.txt
 			clear                
 			sleep 55
         fi
