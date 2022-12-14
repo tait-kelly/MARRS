@@ -12,33 +12,33 @@ sudo mysql drupal --batch -u root -p"A+C247srv" -s -e "SELECT entity_id from nod
 FAILED=0
 while read -r adhoc
 do
-        #echo "ADHOC IS $adhoc"
+        echo "ADHOC IS $adhoc"
         ADHOC=$adhoc
 done <adhocentity.txt
 sudo mysql drupal --batch -u root -p"A+C247srv" -s -e "SELECT title from node_field_data WHERE nid='$ADHOC'" > title.txt
 while read -r title
 do
-        #echo "ADHOC IS $adhoc"
+        echo "ADHOC IS $adhoc"
         TITLE=$title
 done <title.txt
 #Below 6 Lines where added on September 22nd, 2021
 sudo mysql drupal --batch -u root -p"A+C247srv" -s -e "SELECT body_value from node__body WHERE entity_id='$ADHOC'" > body.txt
 while read -r body
 do
-        #echo "ADHOC IS $adhoc"
+        echo "ADHOC IS $adhoc"
         BODY=$body
 done <body.txt
-#echo "ADHOC is now $ADHOC"
+echo "ADHOC is now $ADHOC"
 ping -c 10 $IP|grep "100% packet loss" >NUL
 if [ "$?" == "0" ]; then
         FAILED=1
-        #echo "Looks like we have a failure at $IP"
+        echo "Looks like we have a failure at $IP"
 fi
 if [ "$FAILED" == "1" ]; then
-        #echo "Looks like there was a failure at IP $IP"
+		echo "Looks like there was a failure at IP $IP"
         ls /home/sysadmin/Documents/errors | grep $IP.txt
         if [ "$?" == "1" ]; then
-                #echo "Looks Like I should be sending and email now"
+                echo "Looks Like I should be sending and email now"
                 #Send email notification to all emails that are entered
                 if [ "$EMAIL1" != "" ]; then
                         sendemail -f sjuit@sju.ca -t $EMAIL1 -u ADHOC MONITORING OF DEVICE $IP FAILED -m "Monitoring of ADHOC device:$TITLE at ip $IP is down.This device has a description of:$BODY" -s mail2.nettrac.net:2500 -xu sjuit@sju.ca -xp "?Mm&FdfU" #Added Body description in email on September 22, 2021
@@ -70,4 +70,5 @@ fi
 sudo mysql drupal --batch -u root -p"A+C247srv" -e "TRUNCATE cache_entity"
 sudo mysql drupal --batch -u root -p"A+C247srv" -e "TRUNCATE cache_render"
 sudo mysql drupal --batch -u root -p"A+C247srv" -e "TRUNCATE cache_data"
+read -p "Press enter to continue"
 #clear
