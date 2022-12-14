@@ -34,7 +34,7 @@ ping -c 10 $IP|grep "100% packet loss" >NUL
 if [ "$?" == "0" ]; then
         FAILED=1
         echo "Looks like we have a failure at $IP"
-		#sleep 30s
+		#Testsleep 30s
 fi
 if [ "$FAILED" == "1" ]; then
 		echo "Looks like there was a failure at IP $IP"
