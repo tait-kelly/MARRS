@@ -18,15 +18,15 @@ done <adhocentity.txt
 sudo mysql drupal --batch -u root -p"A+C247srv" -s -e "SELECT title from node_field_data WHERE nid='$ADHOC'" > title.txt
 while read -r title
 do
-        echo "ADHOC IS $adhoc"
         TITLE=$title
+		echo "ADHOC title IS $TITLE"
 done <title.txt
 #Below 6 Lines where added on September 22nd, 2021
 sudo mysql drupal --batch -u root -p"A+C247srv" -s -e "SELECT body_value from node__body WHERE entity_id='$ADHOC'" > body.txt
 while read -r body
 do
-        echo "ADHOC IS $adhoc"
         BODY=$body
+		echo "ADHOC body IS $BODY"
 done <body.txt
 echo "ADHOC is now $ADHOC"
 ping -c 10 $IP|grep "100% packet loss" >NUL
