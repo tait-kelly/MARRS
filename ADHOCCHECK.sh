@@ -29,7 +29,7 @@ do
         BODY=$body
 		echo "ADHOC body IS $BODY"
 done <body.txt
-echo "ADHOC is now $ADHOC"
+echo "ADHOC is now $ADHOC Time to test the ADHOC"
 ping -c 10 $IP|grep "100% packet loss" >NUL
 if [ "$?" == "0" ]; then
         FAILED=1
