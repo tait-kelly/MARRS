@@ -12,7 +12,8 @@ do
 	        if [ "$HOUR" -gt "5" -a "$HOUR" -lt "23" ]; then
                         #echo "Counter is $COUNTER"
                         if (($COUNTER % 5  == 0 )); then
-                                mysql drupal --batch -u root -p"A+C247srv" -s -e "SELECT * from node__field_adhoc_ip" > /home/sysadmin/Documents/adhocs.txt
+                                echo time to grab the ADHOCS
+								mysql drupal --batch -u root -p"A+C247srv" -s -e "SELECT * from node__field_adhoc_ip" > /home/sysadmin/Documents/adhocs.txt
                                 mysql drupal --batch -u root -p"A+C247srv" -s -e "SELECT * from node__field_adhoc_scan_interval" > /home/sysadmin/Documents/adhocpolling.txt
 								mysql drupal --batch -u root -p"A+C247srv" -s -e "SELECT * from node__field_adhoc_email_notification_1" > /home/sysadmin/Documents/adhocemails.txt
 								mysql drupal --batch -u root -p"A+C247srv" -s -e "SELECT * from node__field_adhoc_email_notification_2" > /home/sysadmin/Documents/adhocemails.txt
