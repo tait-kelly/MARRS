@@ -33,6 +33,7 @@ ping -c 10 $IP|grep "100% packet loss" >NUL
 if [ "$?" == "0" ]; then
         FAILED=1
         echo "Looks like we have a failure at $IP"
+		sleep 30s
 fi
 if [ "$FAILED" == "1" ]; then
 		echo "Looks like there was a failure at IP $IP"
@@ -55,6 +56,7 @@ if [ "$FAILED" == "1" ]; then
                 echo "ERROR Logged and notification send at $TODAY" > /home/sysadmin/Documents/errors/$IP.txt
                 sudo mysql drupal --batch -u root -p"A+C247srv" -e "UPDATE node__field_status SET field_status_value= '0' WHERE entity_id='$ADHOC'"
                 sudo mysql drupal --batch -u root -p"A+C247srv" -e "UPDATE node__field_lastofflinedt SET field_lastofflinedt_value= '$TODAY' WHERE entity_id='$ADHOC'"
+				sleep 30s
         fi
 fi
 if [ "$FAILED" == "0" ]; then
@@ -65,10 +67,11 @@ if [ "$FAILED" == "0" ]; then
                 rm /home/sysadmin/Documents/errors/$IP.txt
                 #echo "the file was just removed now for the database"
                 sudo mysql drupal --batch -u root -p"A+C247srv" -e "UPDATE node__field_status SET field_status_value= '1' WHERE entity_id='$ADHOC'"
+				sleep 30s
         fi
 fi
 sudo mysql drupal --batch -u root -p"A+C247srv" -e "TRUNCATE cache_entity"
 sudo mysql drupal --batch -u root -p"A+C247srv" -e "TRUNCATE cache_render"
 sudo mysql drupal --batch -u root -p"A+C247srv" -e "TRUNCATE cache_data"
-read -p "Press enter to continue"
+sleep 30s
 #clear
