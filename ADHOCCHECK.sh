@@ -9,7 +9,7 @@ EMAIL4=$5
 TODAY="$(date +%s)"
 #echo "I have emails of $EMAIL1,$EMAIL2,$EMAIL3,$EMAIL4"
 echo "Checking IP $IP" >> adhoclog.log
-sudo mysql drupal --batch -u root -p"A+C247srv" -s -e "SELECT entity_id from node__field_adhoc_ip WHERE field_adhoc_ip_value='$IP'" >adhocentity.txt
+sudo mysql drupal --batch -u root -p"A+C247srv" -s -e "SELECT entity_id from node__field_adhoc_ip_dns WHERE field_adhoc_ip_dns_value='$IP'" >adhocentity.txt
 FAILED=0
 while read -r adhoc
 do
