@@ -1202,9 +1202,9 @@ if [ "$STATUS" == "0" ]; then
 		RTSUBJECT=$(grep -o "\[.*] \[AVID#$PREVAVID]" /home/sysadmin/mail/new/subjects.txt)
 		sendemail -f sjuit@sju.ca -t tait.kelly@uwaterloo.ca -u $RTSUBJECT [AVID#$PREVAVID] Communications Restored in room:$ROOM -m "$RTSUBJECT [AVID#$PREVAVID] A Previous issue found in room $ROOM was resolved" -s mail2.nettrac.net:2500 -xu sjuit@sju.ca -xp "?Mm&FdfU"
 		#echo "now the removal from the var folder"
-		echo "A+C247srv" | sudo rm -f /var/www/html/sites/default/files/$IP.log
+		echo "A+C247srv" | sudo rm -f /var/www/html/drupal/sites/default/files/$IP.log
 		#echo "now the copy"
-		echo "A+C247srv" | sudo cp /home/sysadmin/Documents/errors/$IP.log /var/www/html/sites/default/files/$IP.log
+		echo "A+C247srv" | sudo cp /home/sysadmin/Documents/errors/$IP.log /var/www/html/drupal/sites/default/files/$IP.log
 		#sendemail -f sjuit@sju.ca -t tait.kelly@uwaterloo.ca -u [AVID#$PREVAVID] Communications Restored in room:$ROOM -m "[AVID#$PREVAVID] A Previous issues found in room $ROOM was resolved" -s mail2.nettrac.net:2500 -xu sjuit@sju.ca -xp "?Mm&FdfU"
 	       	sudo mysql drupal --batch -u root -p"A+C247srv" -e "SELECT delta FROM node__field_av_status_events WHERE entity_id='$ENTITYID' ORDER BY delta DESC LIMIT 1" > lastdelta.txt
        		while read -r delta

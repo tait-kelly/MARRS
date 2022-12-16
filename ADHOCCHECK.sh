@@ -43,16 +43,16 @@ if [ "$FAILED" == "1" ]; then
                 echo "Looks Like I should be sending and email now"
                 #Send email notification to all emails that are entered
                 if [ "$EMAIL1" != "" ]; then
-                        sendemail -f sjuit@sju.ca -t $EMAIL1 -u ADHOC MONITORING OF DEVICE $IP FAILED -m "Monitoring of ADHOC device:$TITLE at ip $IP is down.This device has a description of:$BODY" -s mail2.nettrac.net:2500 -xu sjuit@sju.ca -xp "?Mm&FdfU" #Added Body description in email on September 22, 2021
+                        sendemail -f sjuit@sju.ca -t $EMAIL1 -u ADHOC MONITORING OF DEVICE $TITLE FAILED -m "Monitoring of ADHOC device:$TITLE at ip $IP is down.This device has a description of:$BODY" -s mail2.nettrac.net:2500 -xu sjuit@sju.ca -xp "?Mm&FdfU" #Added Body description in email on September 22, 2021
                 fi
                 if [ "$EMAIL2" != "" ]; then
-                        sendemail -f sjuit@sju.ca -t $EMAIL2 -u ADHOC MONITORING OF DEVICE $IP FAILED -m "Monitoring of ADHOC device:$TITLE at ip $IP is down.This device has a description of:$BODY" -s mail2.nettrac.net:2500 -xu sjuit@sju.ca -xp "?Mm&FdfU" #Added Body description in email on September 22, 2021
+                        sendemail -f sjuit@sju.ca -t $EMAIL2 -u ADHOC MONITORING OF DEVICE $TITLE FAILED -m "Monitoring of ADHOC device:$TITLE at ip $IP is down.This device has a description of:$BODY" -s mail2.nettrac.net:2500 -xu sjuit@sju.ca -xp "?Mm&FdfU" #Added Body description in email on September 22, 2021
                 fi
                 if [ "$EMAIL3" != "" ]; then
-                        sendemail -f sjuit@sju.ca -t $EMAIL3 -u ADHOC MONITORING OF DEVICE $IP FAILED -m "Monitoring of ADHOC device:$TITLE at ip $IP is down.This device has a description of:$BODY" -s mail2.nettrac.net:2500 -xu sjuit@sju.ca -xp "?Mm&FdfU" #Added Body description in email on September 22, 2021
+                        sendemail -f sjuit@sju.ca -t $EMAIL3 -u ADHOC MONITORING OF DEVICE $TITLE FAILED -m "Monitoring of ADHOC device:$TITLE at ip $IP is down.This device has a description of:$BODY" -s mail2.nettrac.net:2500 -xu sjuit@sju.ca -xp "?Mm&FdfU" #Added Body description in email on September 22, 2021
                 fi
                 if [ "$EMAIL4" != "" ]; then
-                        sendemail -f sjuit@sju.ca -t $EMAIL4 -u ADHOC MONITORING OF DEVICE $IP FAILED -m "Monitoring of ADHOC device:$TITLE at ip $IP is down.This device has a description of:$BODY" -s mail2.nettrac.net:2500 -xu sjuit@sju.ca -xp "?Mm&FdfU" #Added Body description in email on September 22, 2021
+                        sendemail -f sjuit@sju.ca -t $EMAIL4 -u ADHOC MONITORING OF DEVICE $TITLE FAILED -m "Monitoring of ADHOC device:$TITLE at ip $IP is down.This device has a description of:$BODY" -s mail2.nettrac.net:2500 -xu sjuit@sju.ca -xp "?Mm&FdfU" #Added Body description in email on September 22, 2021
                 fi
                 echo "ERROR Logged and notification send at $TODAY" > /home/sysadmin/Documents/errors/$IP.txt
                 sudo mysql drupal --batch -u root -p"A+C247srv" -e "UPDATE node__field_adhoc_online_status SET field_adhoc_online_status_value= '0' WHERE entity_id='$ADHOC'"
