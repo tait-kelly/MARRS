@@ -8,7 +8,7 @@ EMAIL4=$5
 #TODAY="$(date +%Y-%m-%d.%H:%M:%S)"
 TODAY="$(date +%s)"
 #echo "I have emails of $EMAIL1,$EMAIL2,$EMAIL3,$EMAIL4"
-echo "Checking IP $IP" >> adhoclog.log
+#echo "Checking IP $IP" >> adhoclog.log
 sudo mysql drupal --batch -u root -p"A+C247srv" -s -e "SELECT entity_id from node__field_adhoc_ip_dns WHERE field_adhoc_ip_dns_value='$IP'" >adhocentity.txt
 FAILED=0
 while read -r adhoc
@@ -20,27 +20,27 @@ sudo mysql drupal --batch -u root -p"A+C247srv" -s -e "SELECT title from node_fi
 while read -r title
 do
         TITLE=$title
-		echo "ADHOC title IS $TITLE"
+		#echo "ADHOC title IS $TITLE"
 done <title.txt
 #Below 6 Lines where added on September 22nd, 2021
 sudo mysql drupal --batch -u root -p"A+C247srv" -s -e "SELECT body_value from node__body WHERE entity_id='$ADHOC'" > body.txt
 while read -r body
 do
         BODY=$body
-		echo "ADHOC body IS $BODY"
+		#echo "ADHOC body IS $BODY"
 done <body.txt
-echo "ADHOC is now $ADHOC Time to test the ADHOC"
+#echo "ADHOC is now $ADHOC Time to test the ADHOC"
 ping -c 10 $IP|grep "100% packet loss" >NUL
 if [ "$?" == "0" ]; then
         FAILED=1
-        echo "Looks like we have a failure at $IP"
+        #echo "Looks like we have a failure at $IP"
 		#Testsleep 30s
 fi
 if [ "$FAILED" == "1" ]; then
-		echo "Looks like there was a failure at IP $IP"
+		#echo "Looks like there was a failure at IP $IP"
         ls /home/sysadmin/Documents/errors | grep $IP.txt
         if [ "$?" == "1" ]; then
-                echo "Looks Like I should be sending and email now"
+                #echo "Looks Like I should be sending and email now"
                 #Send email notification to all emails that are entered
                 if [ "$EMAIL1" != "" ]; then
                         sendemail -f sjuit@sju.ca -t $EMAIL1 -u ADHOC MONITORING OF DEVICE $TITLE FAILED -m "Monitoring of ADHOC device:$TITLE at ip $IP is down.This device has a description of:$BODY" -s mail2.nettrac.net:2500 -xu sjuit@sju.ca -xp "?Mm&FdfU" #Added Body description in email on September 22, 2021
@@ -57,6 +57,7 @@ if [ "$FAILED" == "1" ]; then
                 echo "ERROR Logged and notification send at $TODAY" > /home/sysadmin/Documents/errors/$IP.txt
                 sudo mysql drupal --batch -u root -p"A+C247srv" -e "UPDATE node__field_adhoc_online_status SET field_adhoc_online_status_value= '0' WHERE entity_id='$ADHOC'"
                 sudo mysql drupal --batch -u root -p"A+C247srv" -e "UPDATE node__field_adhoc_last_offline SET field_adhoc_last_offline_value= '$TODAY' WHERE entity_id='$ADHOC'"
+				
 				#sleep 30s
         fi
 fi
